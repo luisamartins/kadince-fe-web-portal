@@ -1,0 +1,13 @@
+.task-container {
+  width: 500px;
+  margin: auto;
+  text-align: left;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.filter button {
+  margin-right: 10px;
+}
