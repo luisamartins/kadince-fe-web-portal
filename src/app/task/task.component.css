@@ -143,8 +143,14 @@
   font-style: italic;
 }
 
-.task-item input {
-  width: calc(100% - 50px);
+.task-item .input-text {
+  width: 35vw;
+  margin-bottom: 5px;
+  border-radius: 5px;
+}
+
+.task-item .input-date {
+  width: 10vw;
   margin-bottom: 5px;
   border-radius: 5px;
 }
@@ -251,7 +257,7 @@
 }
 
 .deadline {
-  color: #ec407a; /* Rosa kawaii */
+  color: #ec407a;
   font-size: 0.85rem;
   font-style: italic;
   margin-left: 8px;
@@ -275,5 +281,38 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* Indicating deadline */
+
+.deadline-indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.deadline-yellow {
+  background-color: yellow;
+}
+
+.deadline-green {
+  background-color: green;
+}
+
+.deadline-red {
+  background-color: red;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
   }
 }

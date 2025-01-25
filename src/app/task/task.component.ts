@@ -28,10 +28,9 @@ export class TaskComponent implements OnInit{
   }
 
   startFloating(): void {
-    // Alterna entre os estados 'start' e 'end' para criar o efeito de loop
     setInterval(() => {
       this.floatState = this.floatState === 'start' ? 'end' : 'start';
-    }, 3000); // Mesma duração do tempo de animação
+    }, 3000);
   }
 
   getTasks(): void {
@@ -85,5 +84,23 @@ export class TaskComponent implements OnInit{
 
   cancelEdit(task: any): void {
     this.getTasks(); // Reload tasks to discard unsaved changes
+  }
+
+  getDeadlineClass(deadline: string | null, complete: boolean): string {
+    if (!deadline || complete) {
+      return 'deadline-green';
+    }
+
+    const currentDate = new Date();
+    const deadlineDate = new Date(deadline);
+    const diffInDays = Math.ceil((deadlineDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (diffInDays <= 1) {
+      return 'deadline-red';
+    } else if (diffInDays > 7) {
+      return 'deadline-green';
+    } else {
+      return 'deadline-yellow';
+    }
   }
 }

@@ -35,26 +35,31 @@
           [ngClass]="{'completed-task': task.completed}">
         <div>
           <!-- Display mode -->
+          <span class="deadline-indicator mx-2"
+                [ngClass]="getDeadlineClass(task.deadline, task.completed)">
+          </span>
           <span *ngIf="!task.isEditing" [class.completed]="task.completed">
             {{ task.title }}: {{ task.description }}
           </span>
 
           <!-- Edit mode -->
-          <div *ngIf="task.isEditing">
+          <div *ngIf="task.isEditing" class="col-xl-12">
             <input
               type="text"
               [(ngModel)]="task.title"
-              class="form-control mb-2"
+              class="form-control mb-2 input-text"
               placeholder="Edit title">
             <input
               type="text"
               [(ngModel)]="task.description"
-              class="form-control"
+              class="form-control input-text"
               placeholder="Edit description">
             <input
-              type="date"
+              type="text"
               [(ngModel)]="task.deadline"
-              class="form-control"
+              class="form-control input-date"
+              onfocus="(this.type='date')"
+              onblur="(this.type='text')"
               placeholder="Edit deadline">
           </div>
         </div>
@@ -96,9 +101,11 @@
                [(ngModel)]="newTask.description"
                placeholder="Description">
         <input
-          type="date"
+          type="text"
           class="form-control"
           [(ngModel)]="newTask.deadline"
+          onfocus="(this.type='date')"
+          onblur="(this.type='text')"
           placeholder="Deadline">
         <button class="btn btn-primary"
                 [disabled]="!titleInput.valid"
