@@ -1,23 +1,74 @@
-<div class="task-container">
-  <h2>Task List</h2>
+<div class="page-container">
+  <header class="task-header mt-4 mb-4">
+    <h1 class="text-center">🌸 TaskApp 🌸</h1>
+  </header>
 
-  <div class="filter">
-    <button (click)="filter='all'">All</button>
-    <button (click)="filter='pending'">Pending</button>
-    <button (click)="filter='complete'">Complete</button>
+  <div class="background-decor">
+    <span class="floating star" [@float]="floatState">🌸</span>
+    <span class="floating flower" [@float]="floatState">🌸</span>
   </div>
 
-  <ul>
-    <li *ngFor="let task of filterTasks()">
-      <span [class.completed]="task.completed">{{ task.title }}: {{ task.description }}</span>
-      <button (click)="completeTask(task)" [disabled]="task.completed">Complete</button>
-      <button (click)="deleteTask(task.id)">Delete</button>
-    </li>
-  </ul>
+  <main class="task-container">
+    <h2 class="text-center">To-Dos</h2>
 
-  <div class="new-task">
-    <input [(ngModel)]="newTask.title" placeholder="Title">
-    <input [(ngModel)]="newTask.description" placeholder="Description">
-    <button (click)="createTask()">Add</button>
-  </div>
+    <div class="filter d-flex justify-content-center mb-3">
+      <button class="btn btn-primary" (click)="filter='all'">All</button>
+      <button class="btn btn-warning" (click)="filter='pending'">Pending</button>
+      <button class="btn btn-success" (click)="filter='complete'">Complete</button>
+    </div>
+
+    <ul class="list-unstyled p-3">
+      <li class="task-item" *ngFor="let task of filterTasks()">
+        <div>
+          <!-- Display mode -->
+          <span *ngIf="!task.isEditing" [class.completed]="task.completed">
+            {{ task.title }}: {{ task.description }}
+          </span>
+
+          <!-- Edit mode -->
+          <div *ngIf="task.isEditing">
+            <input type="text" [(ngModel)]="task.title" class="form-control mb-2" placeholder="Edit title">
+            <input type="text" [(ngModel)]="task.description" class="form-control" placeholder="Edit description">
+          </div>
+        </div>
+        <div class="task-actions">
+          <!-- Complete button -->
+          <button *ngIf="!task.isEditing" class="btn btn-sm btn-success" (click)="completeTask(task)" [disabled]="task.completed">
+            <fa-icon icon="check"></fa-icon>
+          </button>
+
+          <!-- Edit button -->
+          <button *ngIf="!task.isEditing" class="btn btn-sm btn-primary" (click)="enableEdit(task)">
+            <fa-icon icon="edit"></fa-icon>
+          </button>
+
+          <!-- Save and Cancel buttons for Edit mode -->
+          <button *ngIf="task.isEditing" class="btn btn-sm btn-success" (click)="saveEdit(task)">
+            <fa-icon icon="save"></fa-icon>
+          </button>
+          <button *ngIf="task.isEditing" class="btn btn-sm btn-secondary" (click)="cancelEdit(task)">
+            <fa-icon icon="times"></fa-icon>
+          </button>
+
+          <!-- Delete button -->
+          <button *ngIf="!task.isEditing" class="btn btn-sm btn-danger" (click)="deleteTask(task.id)">
+            <fa-icon icon="trash-alt"></fa-icon>
+          </button>
+        </div>
+      </li>
+    </ul>
+
+    <div class="new-task mt-4">
+      <div class="input-group mb-3">
+        <input class="form-control" [(ngModel)]="newTask.title" placeholder="Title">
+        <input class="form-control" [(ngModel)]="newTask.description" placeholder="Description">
+        <button class="btn btn-primary" (click)="createTask()">Add</button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="task-footer text-center">
+    <p>Made by Luisa Martins 🌟</p>
+  </footer>
+
 </div>
