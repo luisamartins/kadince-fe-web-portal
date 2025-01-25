@@ -11,10 +11,22 @@
   <main class="task-container">
     <h2 class="text-center">To-Dos</h2>
 
-    <div class="filter d-flex justify-content-center mb-3">
-      <button class="btn btn-primary" (click)="filter='all'">All</button>
-      <button class="btn btn-warning" (click)="filter='pending'">Pending</button>
-      <button class="btn btn-success" (click)="filter='complete'">Complete</button>
+    <div class="filter d-flex justify-content-center">
+      <button class="btn btn-primary mx-1"
+              [ngClass]="{'active': filter === 'all'}"
+              (click)="filter='all'">
+        All
+      </button>
+      <button class="btn btn-warning mx-1"
+              [ngClass]="{'active': filter === 'pending'}"
+              (click)="filter='pending'">
+        Pending
+      </button>
+      <button class="btn btn-success mx-1"
+              [ngClass]="{'active': filter === 'complete'}"
+              (click)="filter='complete'">
+        Complete
+      </button>
     </div>
 
     <ul class="list-unstyled p-3">

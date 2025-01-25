@@ -115,6 +115,8 @@
   justify-content: space-between;
   align-items: center;
   transition: transform 0.2s ease, box-shadow 0.3s ease;
+  overflow: hidden; /* Evita overflow de conteúdo */
+  word-wrap: break-word;
 }
 
 .task-item:hover {
@@ -132,6 +134,13 @@
   width: calc(100% - 50px);
   margin-bottom: 5px;
   border-radius: 5px;
+}
+
+.task-item span {
+  max-width: calc(100% - 120px); /* Espaço reservado para os botões */
+  word-break: break-word; /* Força a quebra de linhas longas */
+  overflow: hidden; /* Evita overflow de texto */
+  text-overflow: ellipsis; /* Adiciona reticências para texto muito longo (opcional) */
 }
 
 /* Buttons */
@@ -154,6 +163,16 @@
 .filter button:hover {
   transform: scale(1.1);
   box-shadow: 0 4px 15px rgba(236, 64, 122, 0.5);
+}
+
+/* Highlight the active filter button */
+.filter .btn.active {
+  background: linear-gradient(135deg, #ffd9e1, #f7a8c9);
+  color: #ec407a;
+  box-shadow: 0 4px 15px rgba(240, 98, 146, 0.5);
+  transform: scale(1.1);
+  font-weight: bold;
+  border: none;
 }
 
 .task-actions .btn-success {
@@ -204,6 +223,12 @@
   cursor: not-allowed; /* Show disabled behavior */
   opacity: 0.6; /* Dimmed appearance */
 }
+
+.task-actions {
+  display: flex; /* Espaçamento entre os botões */
+  flex-shrink: 0; /* Impede que os botões encolham */
+}
+
 
 /* New Task Form */
 .new-task .input-group input {
