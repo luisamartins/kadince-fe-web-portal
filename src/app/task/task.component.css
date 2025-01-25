@@ -250,6 +250,13 @@
   box-shadow: 0 4px 10px rgba(240, 98, 146, 0.1);
 }
 
+.deadline {
+  color: #ec407a; /* Rosa kawaii */
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-left: 8px;
+}
+
 .validation-warning {
   color: #ec407a;
   font-size: 0.9rem;
