@@ -16,7 +16,7 @@ import {animate, keyframes, state, style, transition, trigger} from "@angular/an
 })
 export class TaskComponent implements OnInit{
   tasks: any[] = [];
-  newTask = { title: '', description: '' };
+  newTask = { title: '', description: '', deadline: '' };
   filter: string = 'all';
   floatState = 'start';
 
@@ -43,7 +43,7 @@ export class TaskComponent implements OnInit{
   createTask(): void {
     this.taskService.createTask(this.newTask).subscribe(() => {
       this.getTasks();
-      this.newTask = { title: '', description: '' };
+      this.newTask = { title: '', description: '', deadline: '' };
     });
   }
 

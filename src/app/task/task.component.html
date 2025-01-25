@@ -41,8 +41,21 @@
 
           <!-- Edit mode -->
           <div *ngIf="task.isEditing">
-            <input type="text" [(ngModel)]="task.title" class="form-control mb-2" placeholder="Edit title">
-            <input type="text" [(ngModel)]="task.description" class="form-control" placeholder="Edit description">
+            <input
+              type="text"
+              [(ngModel)]="task.title"
+              class="form-control mb-2"
+              placeholder="Edit title">
+            <input
+              type="text"
+              [(ngModel)]="task.description"
+              class="form-control"
+              placeholder="Edit description">
+            <input
+              type="date"
+              [(ngModel)]="task.deadline"
+              class="form-control"
+              placeholder="Edit deadline">
           </div>
         </div>
         <div class="task-actions">
@@ -82,6 +95,11 @@
         <input class="form-control"
                [(ngModel)]="newTask.description"
                placeholder="Description">
+        <input
+          type="date"
+          class="form-control"
+          [(ngModel)]="newTask.deadline"
+          placeholder="Deadline">
         <button class="btn btn-primary"
                 [disabled]="!titleInput.valid"
                 (click)="createTask()">
