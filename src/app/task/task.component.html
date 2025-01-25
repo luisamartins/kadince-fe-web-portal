@@ -30,7 +30,9 @@
     </div>
 
     <ul class="list-unstyled p-3">
-      <li class="task-item" *ngFor="let task of filterTasks()">
+      <li class="task-item"
+          *ngFor="let task of filterTasks()"
+          [ngClass]="{'completed-task': task.completed}">
         <div>
           <!-- Display mode -->
           <span *ngIf="!task.isEditing" [class.completed]="task.completed">
@@ -45,7 +47,7 @@
         </div>
         <div class="task-actions">
           <!-- Complete button -->
-          <button *ngIf="!task.isEditing" class="btn btn-sm btn-success" (click)="completeTask(task)" [disabled]="task.completed">
+          <button *ngIf="!task.isEditing && !task.completed" class="btn btn-sm btn-success" (click)="completeTask(task)" [disabled]="task.completed">
             <fa-icon icon="check"></fa-icon>
           </button>
 
@@ -72,10 +74,25 @@
 
     <div class="new-task mt-4">
       <div class="input-group mb-3">
-        <input class="form-control" [(ngModel)]="newTask.title" placeholder="Title">
-        <input class="form-control" [(ngModel)]="newTask.description" placeholder="Description">
-        <button class="btn btn-primary" (click)="createTask()">Add</button>
+        <input class="form-control"
+               required
+               #titleInput="ngModel"
+               [(ngModel)]="newTask.title"
+               placeholder="Title">
+        <input class="form-control"
+               [(ngModel)]="newTask.description"
+               placeholder="Description">
+        <button class="btn btn-primary"
+                [disabled]="!titleInput.valid"
+                (click)="createTask()">
+          Add
+        </button>
       </div>
+      <small
+        *ngIf="!titleInput.valid && titleInput.touched"
+        class="validation-warning">
+        🌸 Please add a title to your task! 🌸
+      </small>
     </div>
   </main>
 
