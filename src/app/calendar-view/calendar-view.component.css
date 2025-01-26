@@ -62,14 +62,13 @@
   aspect-ratio: 1.6;
   text-align: center;
   transition: transform 0.2s, background-color 0.2s;
-  overflow: hidden; /* Garante que nada "vaze" */
+  overflow: hidden;
   position: relative;
   text-overflow: ellipsis;
 }
 
 .calendar-cell:hover {
-  transform: scale(1.05);
-  background-color: #ffe4ed;
+  background-color: #ffe4ed !important;
 }
 
 ul.list-unstyled {

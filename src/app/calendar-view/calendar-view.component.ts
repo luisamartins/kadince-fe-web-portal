@@ -88,6 +88,8 @@ export class CalendarViewComponent implements OnInit {
   getTasksForDate(date: Date): any[] {
     if (!date) return [];
     return this.tasks.filter(task => {
+      if (!task.deadline) return false;
+
       const taskDateParts = task.deadline.split('-');
       const taskDate = new Date(
         Number(taskDateParts[0]),
