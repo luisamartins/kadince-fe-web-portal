@@ -9,11 +9,13 @@ import {FormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FaIconLibrary, FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {faCheck, faEdit, faSave, faTimes, faTrashAlt} from "@fortawesome/free-solid-svg-icons";
+import { CalendarViewComponent } from './calendar-view/calendar-view.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TaskComponent
+    TaskComponent,
+    CalendarViewComponent
   ],
   imports: [
     BrowserModule,
