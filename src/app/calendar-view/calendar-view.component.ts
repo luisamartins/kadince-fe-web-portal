@@ -15,6 +15,7 @@ export class CalendarViewComponent implements OnInit {
   month: string = '';
   year: number = 0;
   currentMonth: number = 0;
+  expandedDay: Date | null = null;
 
   /**
    * Initializes the component.
@@ -119,5 +120,13 @@ export class CalendarViewComponent implements OnInit {
       date.getMonth() === today.getMonth() &&
       date.getFullYear() === today.getFullYear()
     );
+  }
+
+  expandDay(date: Date): void {
+    this.expandedDay = date;
+  }
+
+  closeExpandedDay(): void {
+    this.expandedDay = null;
   }
 }
