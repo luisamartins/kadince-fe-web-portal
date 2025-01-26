@@ -8,12 +8,17 @@
     <span class="floating flower" [@float]="floatState">🌸</span>
   </div>
 
-  <main class="task-container">
-    <div>
-      <button class="btn btn-info" (click)="showCalendar = !showCalendar">
-        Toggle Calendar
-      </button>
+  <main class="task-container d-flex flex-column col-6">
+    <div class="toggle-container mb-1">
+      <fa-icon class="toggle-label" icon="clipboard-check"></fa-icon>
+      <label class="toggle-switch">
+        <input type="checkbox" [(ngModel)]="showCalendar">
+        <span class="toggle-slider"></span>
+      </label>
+      <fa-icon class="toggle-label" icon="calendar-days"></fa-icon>
     </div>
+
+
     <app-calendar-view *ngIf="showCalendar" [tasks]="tasks"></app-calendar-view>
     <div *ngIf="!showCalendar">
       <h2 class="text-center">To-Dos</h2>
@@ -36,8 +41,8 @@
         </button>
       </div>
 
-      <ul class="list-unstyled p-3">
-        <li class="task-item"
+      <ul class="list-unstyled col-12 p-3">
+        <li class="task-item mb-3 p-2"
             *ngFor="let task of filterTasks()"
             [ngClass]="{'completed-task': task.completed}">
           <div>
@@ -97,8 +102,8 @@
         </li>
       </ul>
 
-      <div class="new-task mt-4">
-        <div class="input-group mb-3">
+      <div class="new-task col-11 mb-2">
+        <div class="input-group">
           <input class="form-control"
                  required
                  #titleInput="ngModel"
