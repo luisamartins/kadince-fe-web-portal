@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class CalendarViewComponent implements OnInit{
   @Input() tasks: any[] = [];
   dates: any[] = [];
+  weeks: any[][] = [];
   month: string = '';
   year: number = 0;
   currentMonth: number = 0;
@@ -37,6 +38,16 @@ export class CalendarViewComponent implements OnInit{
     }
 
     this.dates = daysInMonth;
+
+    while (daysInMonth.length % 7 !== 0) {
+      daysInMonth.push(null);
+    }
+
+    // Agrupa os dias em semanas
+    this.weeks = [];
+    for (let i = 0; i < daysInMonth.length; i += 7) {
+      this.weeks.push(daysInMonth.slice(i, i + 7));
+    }
   }
 
   changeMonth(offset: number): void {
@@ -54,8 +65,23 @@ export class CalendarViewComponent implements OnInit{
   }
 
   getTasksForDate(date: Date): any[] {
+    if (!date) return [];
     return this.tasks.filter(
       task => new Date(task.deadline).toDateString() === date.toDateString()
     );
   }
+
+  isToday(date: Date | null): boolean {
+    if (!date) {
+      return false;
+    }
+
+    const today = new Date();
+    return (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    );
+  }
+
 }

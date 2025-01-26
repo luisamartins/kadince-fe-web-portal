@@ -1,25 +1,45 @@
-<div class="calendar-container">
-  <div class="calendar-header d-flex justify-content-between align-items-center">
-    <button class="btn btn-sm btn-secondary" (click)="changeMonth(-1)">&#9664; Prev</button>
-    <h2>{{ month }} {{ year }}</h2>
-    <button class="btn btn-sm btn-secondary" (click)="changeMonth(1)">Next &#9654;</button>
+<div class="calendar-container container">
+  <!-- Header do Calendário -->
+  <div class="calendar-header row align-items-center mb-3">
+    <div class="col-auto">
+      <button class="btn btn-sm btn-secondary" (click)="changeMonth(-1)">
+        <fa-icon icon="backward"></fa-icon>
+        Prev
+      </button>
+    </div>
+    <div class="col text-center">
+      <h2 class="m-0">✨ {{ month }} {{ year }} ✨</h2>
+    </div>
+    <div class="col-auto">
+      <button class="btn btn-sm btn-secondary" (click)="changeMonth(1)">
+        Next
+        <fa-icon icon="forward"></fa-icon>
+      </button>
+    </div>
   </div>
 
-  <div class="calendar-grid">
-    <div class="calendar-cell header">Sun</div>
-    <div class="calendar-cell header">Mon</div>
-    <div class="calendar-cell header">Tue</div>
-    <div class="calendar-cell header">Wed</div>
-    <div class="calendar-cell header">Thu</div>
-    <div class="calendar-cell header">Fri</div>
-    <div class="calendar-cell header">Sat</div>
+  <!-- Cabeçalho dos Dias da Semana -->
+  <div class="row text-center fw-bold">
+    <div class="col" *ngFor="let day of ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']">
+      {{ day }}
+    </div>
+  </div>
 
-    <div *ngFor="let date of dates" class="calendar-cell">
+  <!-- Dias do Calendário -->
+  <div *ngFor="let week of weeks" class="row g-1">
+    <div
+      class="col calendar-cell"
+      *ngFor="let date of week"
+      [ngClass]="{'bg-light': date, 'bg-warning border-danger': isToday(date)}"
+    >
       <ng-container *ngIf="date">
-        <span class="date">{{ date.getDate() }}</span>
-        <ul>
-          <li *ngFor="let task of getTasksForDate(date)">
-            {{ task.title }}
+        <span class="fw-semibold">
+          {{ date.getDate() }}
+          <span *ngIf="getTasksForDate(date).length > 0">📌</span>
+        </span>
+        <ul class="list-unstyled">
+          <li *ngFor="let task of getTasksForDate(date)" class="small text-danger">
+            {{ task.title }} 💖
           </li>
         </ul>
       </ng-container>
