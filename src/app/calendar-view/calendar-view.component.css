@@ -59,9 +59,12 @@
   justify-content: space-between;
   align-items: center;
   max-height: 8vh;
-  aspect-ratio: 1.6; /* Mantém quadrado */
+  aspect-ratio: 1.6;
   text-align: center;
   transition: transform 0.2s, background-color 0.2s;
+  overflow: hidden; /* Garante que nada "vaze" */
+  position: relative;
+  text-overflow: ellipsis;
 }
 
 .calendar-cell:hover {
@@ -88,7 +91,25 @@ ul.list-unstyled::-webkit-scrollbar-thumb {
 }
 
 .text-danger {
-  color: #ff4081 !important;
+  max-width: 10vh;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.task-complete {
+  background-color: #e8f5e9; /* Verde suave */
+  color: #2e7d32 !important; /* Verde mais escuro */
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
+}
+
+.task-incomplete {
+  background-color: #ffe4e6; /* Rosa fofinho */
+  color: #d81b60; /* Rosa mais escuro */
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
 }
 
 /* Responsividade */

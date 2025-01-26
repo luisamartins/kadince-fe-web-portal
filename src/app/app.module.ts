@@ -14,7 +14,7 @@ import {
   faCheck,
   faClipboard,
   faClipboardCheck,
-  faEdit, faForward,
+  faEdit, faForward, faHeart,
   faSave,
   faTimes,
   faTrashAlt
@@ -49,5 +49,6 @@ export class AppModule {
     library.addIcons(faClipboardCheck);
     library.addIcons(faBackward);
     library.addIcons(faForward);
+    library.addIcons(faHeart);
   }
 }
