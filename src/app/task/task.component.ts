@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TaskService} from "../services/task.service";
 import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-task',
@@ -10,7 +11,7 @@ import {animate, keyframes, state, style, transition, trigger} from "@angular/an
     trigger('float', [
       state('start', style({ transform: 'translateY(0) translateX(0)' })),
       state('end', style({ transform: 'translateY(-20px) translateX(10px)' })),
-      transition('start <=> end', animate('3s ease-in-out')) // Sem "infinite"
+      transition('start <=> end', animate('3s ease-in-out'))
     ])
   ]
 })
@@ -40,10 +41,11 @@ export class TaskComponent implements OnInit{
     });
   }
 
-  createTask(): void {
+  createTask(form: NgForm): void {
     this.taskService.createTask(this.newTask).subscribe(() => {
       this.getTasks();
       this.newTask = { title: '', description: '', deadline: '' };
+      form.resetForm();
     });
   }
 
@@ -75,16 +77,16 @@ export class TaskComponent implements OnInit{
   }
 
   enableEdit(task: any): void {
-    task.isEditing = true; // Enable edit mode
+    task.isEditing = true;
   }
 
   saveEdit(task: any): void {
-    task.isEditing = false; // Disable edit mode
-    this.updateTask(task); // Save changes
+    task.isEditing = false;
+    this.updateTask(task);
   }
 
   cancelEdit(task: any): void {
-    this.getTasks(); // Reload tasks to discard unsaved changes
+    this.getTasks();
   }
 
   getDeadlineClass(deadline: string | null, complete: boolean): string {
