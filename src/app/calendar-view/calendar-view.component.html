@@ -35,8 +35,12 @@
       <ng-container *ngIf="date">
         <span class="fw-semibold">
           {{ date.getDate() }}
-          <span *ngIf="getTasksForDate(date).length > 0">📌</span>
         </span>
+        <button *ngIf="getTasksForDate(date).length > 0"
+                class="btn btn-kawaii p-0 fw-light"
+                (click)="expandDay(date)">
+          <fa-icon class="small"  icon="magnifying-glass-plus"></fa-icon>
+        </button>
         <ul class="list-unstyled">
           <li *ngFor="let task of getTasksForDate(date)"
               [ngClass]="{ 'task-incomplete': !task.completed, 'task-complete': task.completed }"
@@ -47,5 +51,19 @@
         </ul>
       </ng-container>
     </div>
+  </div>
+
+  <div *ngIf="expandedDay" class="details-modal">
+    <div class="details-header">
+      <h3>🌸 Details for {{ expandedDay | date: 'fullDate' }} 🌸</h3>
+      <button class="btn-close-kawaii" (click)="closeExpandedDay()">❌</button>
+    </div>
+    <ul>
+      <li
+        [ngClass]="{ 'task-incomplete': !task.completed, 'task-complete': task.completed }"
+        *ngFor="let task of getTasksForDate(expandedDay)">
+        <strong>{{ task.title }}</strong>: {{ task.description }}
+      </li>
+    </ul>
   </div>
 </div>
