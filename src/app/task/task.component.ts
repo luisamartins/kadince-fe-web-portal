@@ -19,6 +19,7 @@ export class TaskComponent implements OnInit{
   newTask = { title: '', description: '', deadline: '' };
   filter: string = 'all';
   floatState = 'start';
+  showCalendar: boolean = false;
 
   constructor(private taskService: TaskService) {}
 

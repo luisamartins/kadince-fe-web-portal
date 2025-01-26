@@ -1,0 +1,64 @@
+.calendar-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  background-color: #fff0f6;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-header {
+  text-align: center;
+  margin-bottom: 20px;
+  font-family: 'Montserrat', sans-serif;
+  color: #d81b60;
+}
+
+.calendar-header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.calendar-header button {
+  font-size: 0.9rem;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+}
+
+.calendar-cell {
+  padding: 10px;
+  text-align: center;
+  background-color: #fce4ec;
+  border: 1px solid #f8bbd0;
+  border-radius: 8px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+}
+
+.calendar-cell.header {
+  background-color: #ec407a;
+  color: white;
+  font-weight: bold;
+}
+
+.calendar-cell .date {
+  font-weight: bold;
+  color: #ec407a;
+}
+
+.calendar-cell ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.calendar-cell ul li {
+  font-size: 0.8rem;
+  color: #d81b60;
+  margin-top: 5px;
+}
