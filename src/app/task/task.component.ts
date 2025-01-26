@@ -5,7 +5,7 @@ import {animate, keyframes, state, style, transition, trigger} from "@angular/an
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.min.css'],
+  styleUrls: ['./task.component.css'],
   animations: [
     trigger('float', [
       state('start', style({ transform: 'translateY(0) translateX(0)' })),
