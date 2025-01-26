@@ -86,10 +86,21 @@ export class CalendarViewComponent implements OnInit {
    */
   getTasksForDate(date: Date): any[] {
     if (!date) return [];
-    return this.tasks.filter(
-      task => new Date(task.deadline).toDateString() === date.toDateString()
-    );
+    return this.tasks.filter(task => {
+      const taskDateParts = task.deadline.split('-');
+      const taskDate = new Date(
+        Number(taskDateParts[0]),
+        Number(taskDateParts[1]) - 1,
+        Number(taskDateParts[2])
+      );
+      return (
+        taskDate.getDate() === date.getDate() &&
+        taskDate.getMonth() === date.getMonth() &&
+        taskDate.getFullYear() === date.getFullYear()
+      );
+    });
   }
+
 
   /**
    * Checks if a date is today.

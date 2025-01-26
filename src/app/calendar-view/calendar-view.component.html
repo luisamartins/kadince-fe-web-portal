@@ -38,8 +38,11 @@
           <span *ngIf="getTasksForDate(date).length > 0">📌</span>
         </span>
         <ul class="list-unstyled">
-          <li *ngFor="let task of getTasksForDate(date)" class="small text-danger">
-            {{ task.title }} 💖
+          <li *ngFor="let task of getTasksForDate(date)"
+              [ngClass]="{ 'task-incomplete': !task.completed, 'task-complete': task.completed }"
+              class="small text-danger">
+            <fa-icon icon="heart"></fa-icon>
+            {{ task.title }}
           </li>
         </ul>
       </ng-container>
