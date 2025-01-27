@@ -124,10 +124,18 @@ export class CalendarViewComponent implements OnInit {
     );
   }
 
+  /**
+   * Opens a modal for the specified date
+   *
+   * @param date the date to retrieve tasks for
+   */
   expandDay(date: Date): void {
     this.expandedDay = date;
   }
 
+  /**
+   * Closes the modal
+   */
   closeExpandedDay(): void {
     this.expandedDay = null;
   }

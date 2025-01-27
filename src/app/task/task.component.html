@@ -4,8 +4,8 @@
   </header>
 
   <div class="background-decor">
-    <span class="floating star" [@float]="floatState">🌸</span>
-    <span class="floating flower" [@float]="floatState">🌸</span>
+    <img src="/assets/cherry-blossom-icon.png" class="flower" [@float]="floatState" alt="flower" />
+    <img src="/assets/cherry-blossom-icon.png" class="star" [@float]="floatState" alt="flower" />
   </div>
 
   <main class="task-container d-flex flex-column col-6">
@@ -40,8 +40,19 @@
           Complete
         </button>
       </div>
-
-      <ul class="list-unstyled col-12 p-3">
+      <div *ngIf="isLoading" class="loading-container">
+        <div class="spinner"></div>
+        <p>
+          🌟 Note: This application is running on a free hosting instance. Due to inactivity,
+          the server may take up to 50 seconds to respond as it wakes up. Thank you for your patience! 🌸
+        </p>
+      </div>
+      <ul *ngIf="!isLoading" class="list-unstyled col-12 p-3">
+        <div
+          class="d-flex justify-content-center align-items-center mt-4"
+          *ngIf="filterTasks().length === 0">
+          <p>🌸 No tasks found for the selected filter 🌸</p>
+        </div>
         <li class="task-item mb-3 p-2"
             *ngFor="let task of filterTasks()"
             [ngClass]="{'completed-task': task.completed}">

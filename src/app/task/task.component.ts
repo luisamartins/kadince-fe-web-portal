@@ -24,6 +24,7 @@ export class TaskComponent implements OnInit{
   filter: string = 'all';
   floatState = 'start';
   showCalendar: boolean = false;
+  isLoading: boolean = false;
 
   constructor(private taskService: TaskService) {}
 
@@ -48,9 +49,20 @@ export class TaskComponent implements OnInit{
    * Retrieves the list of tasks.
    */
   getTasks(): void {
-    this.taskService.getTasks().subscribe((data) => {
-      this.tasks = data.map(task => ({ ...task, isEditing: false }));
-    });
+    this.isLoading = true;
+    this.taskService.getTasks().subscribe(
+      {
+        next: (data) => {
+          this.tasks = data.map(task => ({...task, isEditing: false}));
+        },
+        error: (error) => {
+          console.error(error);
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      }
+    );
   }
 
   /**
