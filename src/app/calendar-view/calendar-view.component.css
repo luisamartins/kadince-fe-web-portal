@@ -1,0 +1,222 @@
+.calendar-container {
+  background: linear-gradient(135deg, #fff0f6, #f8f9fa);
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 80vw;
+  max-height: 90vh;
+  margin: 0 auto;
+}
+
+.calendar-header {
+  background-color: #ffe3ed;
+  border-radius: 10px;
+  padding: 0.5rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header h2 {
+  font-size: 1.0rem;
+  color: #ff80ab;
+  text-shadow: 1px 1px 2px #ffc4d6;
+}
+
+.btn-secondary {
+  background-color: #ffafcc;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-secondary:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #ff8fab;
+}
+
+.bg-light {
+  background-color: #fff9fc !important; /* Claro, para células normais */
+}
+
+.bg-warning {
+  background-color: #ffebf2 !important; /* Destaque para o dia atual */
+}
+
+.border-danger {
+  border: 2px dashed #ff80ab !important; /* Borda estilo fofo */
+}
+
+.calendar-cell {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  max-height: 8vh;
+  aspect-ratio: 1.6;
+  text-align: center;
+  transition: transform 0.2s, background-color 0.2s;
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+}
+
+.calendar-cell:hover {
+  background-color: #ffe4ed !important;
+}
+
+ul.list-unstyled {
+  max-height: 5vh;
+  overflow-y: auto;
+  font-size: 0.75rem;
+  color: #ff80ab;
+  margin: 0;
+  padding: 0;
+}
+
+ul.list-unstyled::-webkit-scrollbar {
+  width: 4px;
+}
+
+ul.list-unstyled::-webkit-scrollbar-thumb {
+  background-color: #ffafcc;
+  border-radius: 4px;
+}
+
+.text-danger {
+  max-width: 10vh;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+.task-complete {
+  background-color: #e8f5e9; /* Verde suave */
+  color: #2e7d32 !important; /* Verde mais escuro */
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
+}
+
+.task-incomplete {
+  background-color: #ffe4e6; /* Rosa fofinho */
+  color: #d81b60; /* Rosa mais escuro */
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .calendar-header h2 {
+    font-size: 1.2rem;
+  }
+
+  .calendar-cell {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+
+  ul.list-unstyled {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .calendar-header h2 {
+    font-size: 1rem;
+  }
+
+  .calendar-cell {
+    font-size: 0.8rem;
+    padding: 0.3rem;
+  }
+
+  ul.list-unstyled {
+    font-size: 0.6rem;
+  }
+}
+
+/*Details modal*/
+.btn-kawaii {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.3rem;
+  color: #ff5c8d;
+  font-size: 0.8rem;
+  font-weight: bold;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-kawaii:hover {
+  transform: scale(1.1);
+  color: deeppink;
+}
+
+.details-modal {
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -20%);
+  background: linear-gradient(135deg, #ffe3ed, #fff0f6);
+  border-radius: 15px;
+  padding: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 80%;
+  z-index: 1000;
+  border: 2px solid #ff80ab;
+}
+
+.details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffdde1;
+  padding: 0.5rem;
+  border-radius: 12px 12px 0 0;
+}
+
+.details-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #d81b60;
+  text-shadow: 1px 1px 2px #ffafcc;
+}
+
+.btn-close-kawaii {
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #ff5c8d;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.btn-close-kawaii:hover {
+  transform: scale(1.2);
+  color: #d81b60;
+}
+
+.details-modal ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 1rem;
+  font-size: 1rem;
+  color: #ff5c8d;
+}
+
+.details-modal ul li {
+  margin-bottom: 0.5rem;
+  background-color: #fff9fc;
+  padding: 0.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

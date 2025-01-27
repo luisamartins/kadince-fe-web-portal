@@ -1,0 +1,165 @@
+<div class="page-container">
+  <header class="task-header mt-4 mb-4">
+    <h1 class="text-center">🌸 TaskApp 🌸</h1>
+  </header>
+
+  <div class="background-decor">
+    <img src="/assets/cherry-blossom-icon.png" class="flower" [@float]="floatState" alt="flower" />
+    <img src="/assets/cherry-blossom-icon.png" class="star" [@float]="floatState" alt="flower" />
+  </div>
+
+  <main class="task-container d-flex flex-column col-6">
+    <div class="toggle-container mb-1">
+      <fa-icon class="toggle-label" icon="clipboard-check"></fa-icon>
+      <label class="toggle-switch">
+        <input type="checkbox" [(ngModel)]="showCalendar">
+        <span class="toggle-slider"></span>
+      </label>
+      <fa-icon class="toggle-label" icon="calendar-days"></fa-icon>
+    </div>
+
+
+    <app-calendar-view *ngIf="showCalendar" [tasks]="tasks"></app-calendar-view>
+    <div *ngIf="!showCalendar">
+      <h2 class="text-center">To-Dos</h2>
+
+      <div class="filter d-flex justify-content-center mb-2">
+        <button class="btn btn-primary mx-1"
+                [ngClass]="{'active': filter === 'all'}"
+                (click)="filter='all'">
+          All
+        </button>
+        <button class="btn btn-warning mx-1"
+                [ngClass]="{'active': filter === 'pending'}"
+                (click)="filter='pending'">
+          Pending
+        </button>
+        <button class="btn btn-success mx-1"
+                [ngClass]="{'active': filter === 'complete'}"
+                (click)="filter='complete'">
+          Complete
+        </button>
+      </div>
+      <div *ngIf="isLoading" class="mt-5 loading-container">
+        <div class="spinner"></div>
+        <p *ngIf="showInactivityMessage">
+          🌟 Note: This application is running on a free hosting instance. Due to inactivity,
+          the server may take up to 50 seconds to respond as it wakes up. Thank you for your patience! 🌸
+        </p>
+      </div>
+      <ul *ngIf="!isLoading" class="list-unstyled col-12 p-3">
+        <div
+          class="d-flex justify-content-center align-items-center mt-4"
+          *ngIf="filterTasks().length === 0">
+          <p>🌸 No tasks found for the selected filter 🌸</p>
+        </div>
+        <li class="task-item mb-3 p-2"
+            *ngFor="let task of filterTasks()"
+            [ngClass]="{'completed-task': task.completed}">
+          <div>
+            <!-- Display mode -->
+            <span class="deadline-indicator mx-2"
+                  [ngClass]="getDeadlineClass(task.deadline, task.completed)">
+            </span>
+            <span *ngIf="!task.isEditing" [class.completed]="task.completed">
+              {{ task.title }}: {{ task.description }}
+            </span>
+
+            <!-- Edit mode -->
+            <div *ngIf="task.isEditing" class="col-xl-12">
+              <input
+                type="text"
+                required
+                #titleEditInput="ngModel"
+                [(ngModel)]="task.title"
+                class="form-control mb-2 input-text"
+                placeholder="Edit title">
+              <input
+                type="text"
+                [(ngModel)]="task.description"
+                class="form-control input-text"
+                placeholder="Edit description">
+              <input
+                type="text"
+                [(ngModel)]="task.deadline"
+                class="form-control input-date"
+                onfocus="(this.type='date')"
+                onblur="(this.type='text')"
+                placeholder="Edit deadline">
+              <small
+                *ngIf="!titleEditInput.valid && titleEditInput.touched"
+                class="validation-warning">
+                🌸 Please add a title to your task! 🌸
+              </small>
+            </div>
+          </div>
+          <div class="task-actions">
+            <!-- Complete button -->
+            <button *ngIf="!task.isEditing && !task.completed" class="btn btn-sm btn-success" (click)="completeTask(task)" [disabled]="task.completed">
+              <fa-icon icon="check"></fa-icon>
+            </button>
+
+            <!-- Edit button -->
+            <button *ngIf="!task.isEditing" class="btn btn-sm btn-primary" (click)="enableEdit(task)">
+              <fa-icon icon="edit"></fa-icon>
+            </button>
+
+            <!-- Save and Cancel buttons for Edit mode -->
+            <button *ngIf="task.isEditing"
+                    [disabled]="!task.title || task.title.trim() === ''"
+                    class="btn btn-sm btn-success"
+                    (click)="saveEdit(task)">
+              <fa-icon icon="save"></fa-icon>
+            </button>
+            <button *ngIf="task.isEditing" class="btn btn-sm btn-secondary" (click)="cancelEdit(task)">
+              <fa-icon icon="times"></fa-icon>
+            </button>
+
+            <!-- Delete button -->
+            <button *ngIf="!task.isEditing" class="btn btn-sm btn-danger" (click)="deleteTask(task.id)">
+              <fa-icon icon="trash-alt"></fa-icon>
+            </button>
+          </div>
+        </li>
+      </ul>
+
+      <form #taskForm="ngForm" class="new-task col-11 mb-2">
+        <div class="input-group">
+          <input class="form-control"
+                 required
+                 #titleInput="ngModel"
+                 [(ngModel)]="newTask.title"
+                 name="title"
+                 placeholder="Title">
+          <input class="form-control"
+                 [(ngModel)]="newTask.description"
+                 name="description"
+                 placeholder="Description">
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="newTask.deadline"
+            name="deadline"
+            onfocus="(this.type='date')"
+            onblur="(this.type='text')"
+            placeholder="Deadline">
+          <button class="btn btn-primary"
+                  [disabled]="!titleInput.valid"
+                  (click)="createTask(taskForm)">
+            Add
+          </button>
+        </div>
+        <small
+          *ngIf="!titleInput.valid && titleInput.touched"
+          class="validation-warning">
+          🌸 Please add a title to your task! 🌸
+        </small>
+      </form>
+    </div>
+  </main>
+
+  <footer class="task-footer text-center">
+    <p>Made by Luisa Martins 🌟</p>
+  </footer>
+
+</div>
