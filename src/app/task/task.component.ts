@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TaskService} from "../services/task.service";
 import {animate, keyframes, state, style, transition, trigger} from "@angular/animations";
 import {NgForm} from "@angular/forms";
+import {finalize, timer} from "rxjs";
 
 /**
  * Component for managing tasks.
@@ -25,6 +26,7 @@ export class TaskComponent implements OnInit{
   floatState = 'start';
   showCalendar: boolean = false;
   isLoading: boolean = false;
+  showInactivityMessage: boolean = false;
 
   constructor(private taskService: TaskService) {}
 
@@ -49,20 +51,30 @@ export class TaskComponent implements OnInit{
    * Retrieves the list of tasks.
    */
   getTasks(): void {
-    this.isLoading = true;
-    this.taskService.getTasks().subscribe(
-      {
-        next: (data) => {
-          this.tasks = data.map(task => ({...task, isEditing: false}));
-        },
-        error: (error) => {
-          console.error(error);
-        },
-        complete: () => {
-          this.isLoading = false;
-        }
+    const inactivityTimer$ = timer(2000).subscribe(() => {
+      if (this.isLoading) {
+        this.showInactivityMessage = true;
       }
-    );
+    });
+
+    this.isLoading = true;
+    this.taskService
+      .getTasks()
+      .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.showInactivityMessage = false;
+          inactivityTimer$.unsubscribe();
+        })
+      )
+      .subscribe({
+        next: (tasks) => {
+          this.tasks = tasks;
+        },
+        error: (err) => {
+          console.error('Error fetching tasks: ', err);
+        }
+      });
   }
 
   /**

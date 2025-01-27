@@ -40,9 +40,9 @@
           Complete
         </button>
       </div>
-      <div *ngIf="isLoading" class="loading-container">
+      <div *ngIf="isLoading" class="mt-5 loading-container">
         <div class="spinner"></div>
-        <p>
+        <p *ngIf="showInactivityMessage">
           🌟 Note: This application is running on a free hosting instance. Due to inactivity,
           the server may take up to 50 seconds to respond as it wakes up. Thank you for your patience! 🌸
         </p>
